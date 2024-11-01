@@ -14,14 +14,15 @@ ext {
     junitVersion = '5.9.2'
 }
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+//sourceCompatibility = '11'
+//targetCompatibility = '11'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
 dependencies {
+    implementation 'org.projectlombok:lombok:1.18.30'
     compileOnly('jakarta.platform:jakarta.jakartaee-web-api:9.1.0')
     compileOnly('jakarta.mvc:jakarta.mvc-api:2.0.0')
 
