@@ -1,9 +1,7 @@
 package org.tix.soa2_1.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.time.ZonedDateTime;
 
@@ -19,7 +17,7 @@ public class Ticket {
 
     private ZonedDateTime creationDate;
 
-    private Integer price;
+    private Double price;
 
     private String comment;
 
