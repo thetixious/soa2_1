@@ -7,6 +7,7 @@ import org.tix.soa2_1.model.TicketForResponse;
 import org.tix.soa2_1.resource.DTO.TicketForUserDTO;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @ApplicationScoped
 public class BookingService {
@@ -19,10 +20,11 @@ public class BookingService {
         newTicket.setName(ticket.getName());
         newTicket.setPrice(ticket.getPrice()*discountDouble + ticket.getPrice() - ticket.getPrice()*discountDouble);
         newTicket.setTicketType(ticket.getType());
-        newTicket.setCreationDate(ZonedDateTime.now());
+        newTicket.setCreationDate(ZonedDateTime.parse(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-M-d"))));
         newTicket.setCoordinates(ticket.getCoordinates());
         newTicket.setComment(ticket.getComment());
         newTicket.setPersonId(personIdLong);
+
         ticketAPICaller.postByPersonId(newTicket);
         return Response.ok().entity(newTicket).build();
 

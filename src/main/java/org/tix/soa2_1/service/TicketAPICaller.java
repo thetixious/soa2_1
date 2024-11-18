@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class TicketAPICaller {
     private Client client;
-    private final String serviceUrl = "http://localhost:8080/tickets";
+    private final String serviceUrl = "https://localhost:8080/tickets";
     private static final Logger logger = Logger.getLogger(TicketAPICaller.class.getName());
 
     private static final ObjectMapper mapper = new ObjectMapper()
@@ -38,6 +38,7 @@ public class TicketAPICaller {
 
 
         try {
+            TrustAllCertificates.disableSslVerification();
             client = ClientBuilder.newClient();
             Response response = client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).get();
 
@@ -48,6 +49,8 @@ public class TicketAPICaller {
         } catch (ProcessingException |
                  JsonProcessingException e) {
             throw new InvalidParameterException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
             client.close();
         }
@@ -62,7 +65,7 @@ public class TicketAPICaller {
             client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(newTicket, MediaType.APPLICATION_JSON));
 
         } catch (ProcessingException e) {
-            throw new InvalidParameterException(e.getMessage());
+            throw new InvalidParameterException("Проблема на этапе кола другого апи");
         } finally {
             client.close();
         }
