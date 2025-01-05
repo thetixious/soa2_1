@@ -16,9 +16,10 @@ public class TicketForUserDTO {
     private String name;
     private Coordinates coordinates;
     private ZonedDateTime creationDate;
-    private Double price;
+    private float price;
     private String comment;
-    private TicketType ticketType;
+    private TicketType type;
+
     private Long personId;
 
 

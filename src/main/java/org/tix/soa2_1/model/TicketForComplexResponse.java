@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Data
 public class TicketForComplexResponse {
     private Long id;
     private String name;
     private Coordinates coordinates;
-    private LocalDate creationDate;
+    private ZonedDateTime creationDate;
     private Double price;
     private String comment;
     private TicketType type;

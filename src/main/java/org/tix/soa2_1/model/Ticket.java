@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 @Data
 public class Ticket {
 
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -17,7 +17,7 @@ public class Ticket {
 
     private ZonedDateTime creationDate;
 
-    private Double price;
+    private float price;
 
     private String comment;
 

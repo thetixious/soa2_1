@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Data
 public class TicketForResponse {
     private String name;
     private Coordinates coordinates;
-    private LocalDate creationDate;
-    private Double price;
+    private ZonedDateTime creationDate;
+    private float price;
     private String comment;
     private TicketType type;
     private Person person;

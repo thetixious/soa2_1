@@ -7,24 +7,25 @@ import org.tix.soa2_1.model.TicketForResponse;
 import org.tix.soa2_1.resource.DTO.TicketForUserDTO;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 public class BookingService {
     @Inject
     TicketAPICaller ticketAPICaller;
+    private static final Logger logger = Logger.getLogger(BookingService.class.getName());
 
-    public Response setDiscountForTicket(Long ticketIdLong, Long personIdLong, Double discountDouble) {
+    public Response setDiscountForTicket(Long ticketIdLong, Long personIdLong) {
         TicketForResponse ticket = ticketAPICaller.getById(ticketIdLong);
         TicketForUserDTO newTicket = new TicketForUserDTO();
         newTicket.setName(ticket.getName());
-        newTicket.setPrice(ticket.getPrice()*discountDouble + ticket.getPrice() - ticket.getPrice()*discountDouble);
-        newTicket.setTicketType(ticket.getType());
-        newTicket.setCreationDate(ZonedDateTime.parse(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-M-d"))));
+        newTicket.setPrice(ticket.getPrice());
+        newTicket.setType(ticket.getType());
+        newTicket.setCreationDate(ZonedDateTime.now());
         newTicket.setCoordinates(ticket.getCoordinates());
         newTicket.setComment(ticket.getComment());
         newTicket.setPersonId(personIdLong);
-
+        logger.info(newTicket.toString());
         ticketAPICaller.postByPersonId(newTicket);
         return Response.ok().entity(newTicket).build();
 

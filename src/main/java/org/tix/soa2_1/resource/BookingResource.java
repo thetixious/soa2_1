@@ -25,8 +25,8 @@ public class BookingResource {
         try {
             Long ticketIdLong = Long.parseLong(ticketId);
             Long personIdLong = Long.parseLong(personId);
-            Double discountDouble= Double.parseDouble(discount);
-            return bookingService.setDiscountForTicket(ticketIdLong,personIdLong,discountDouble);
+            float discountFloat= Float.parseFloat(discount);
+            return bookingService.setDiscountForTicket(ticketIdLong,personIdLong);
         } catch (NumberFormatException e) {
             throw new InvalidParameterException("Incorrect format of input data");
         }

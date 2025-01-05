@@ -14,6 +14,7 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.tix.soa2_1.exception.InvalidParameterException;
+import org.tix.soa2_1.exception.NotFoundTicketException;
 import org.tix.soa2_1.model.TicketForResponse;
 import org.tix.soa2_1.resource.DTO.TicketForUserDTO;
 
@@ -38,13 +39,19 @@ public class TicketAPICaller {
 
 
         try {
-            TrustAllCertificates.disableSslVerification();
+            CertificatesConfiguration.disableSslVerification();
             client = ClientBuilder.newClient();
             Response response = client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).get();
 
+            if (response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
+                logger.info(" ОШИБКААААА1");
+                logger.info(String.valueOf(response.getStatus()));
+                throw new NotFoundTicketException("Ticket or user not found");
+            }
             String rawJson = response.readEntity(String.class);
-
+            logger.info(rawJson);
             return mapper.readValue(rawJson, TicketForResponse.class);
+
 
         } catch (ProcessingException |
                  JsonProcessingException e) {
@@ -61,11 +68,19 @@ public class TicketAPICaller {
     public void postByPersonId(TicketForUserDTO newTicket) {
         String targetPath = serviceUrl + "/" + "person";
         try {
+            CertificatesConfiguration.disableSslVerification();
             client = ClientBuilder.newClient();
-            client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(newTicket, MediaType.APPLICATION_JSON));
-
+            Response response = client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(newTicket, MediaType.APPLICATION_JSON));
+            logger.info(response.toString());
+            if (response.getStatus() !=Response.Status.OK.getStatusCode()) {
+                logger.info(" ОШИБКААААА1");
+                logger.info(String.valueOf(response.getStatus()));
+                throw new NotFoundTicketException("Ticket or user not found");
+            }
         } catch (ProcessingException e) {
             throw new InvalidParameterException("Проблема на этапе кола другого апи");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
             client.close();
         }
@@ -75,14 +90,24 @@ public class TicketAPICaller {
         String targetPath = serviceUrl + "/person/" + personId;
 
         try {
+            CertificatesConfiguration.disableSslVerification();
             client = ClientBuilder.newClient();
-            Response response = client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).get();
-            if (response.getStatus() != Response.Status.OK.getStatusCode())
-                throw new InvalidParameterException("Person with that ID doesn't exist");
+            Response response = client.target(targetPath).request(MediaType.APPLICATION_JSON_TYPE).delete();
+            logger.info(String.valueOf(response.getStatus()));
+            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                logger.info("офывдлаофлыд ОШИБКААААА2");
+                throw new NotFoundTicketException("Ticket or user not found");
+            }
         } catch (ProcessingException e) {
-            throw new InvalidParameterException(e.getMessage());
+            throw new InvalidParameterException("Processing error while removing tickets for personId " + personId + ": " + e.getMessage());
+        } catch (NotFoundTicketException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error while removing tickets for personId " + personId, e);
         } finally {
-            client.close();
+            if (client != null) {
+                client.close();
+            }
         }
     }
 }

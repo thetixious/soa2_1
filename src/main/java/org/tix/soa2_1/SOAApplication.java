@@ -2,6 +2,7 @@ package org.tix.soa2_1;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
+import org.tix.soa2_1.exception.NotFoundTicketExceptionMapper;
 import org.tix.soa2_1.resource.BookingResource;
 import org.tix.soa2_1.exception.InvalidParameterExceptionMapper;
 import org.tix.soa2_1.service.CORSFilter;
@@ -17,6 +18,7 @@ public class SOAApplication extends Application {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(BookingResource.class);
         classes.add(InvalidParameterExceptionMapper.class);
+        classes.add(NotFoundTicketExceptionMapper.class);
         classes.add(CORSFilter.class);
         return classes;
     }
