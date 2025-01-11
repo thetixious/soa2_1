@@ -8,6 +8,33 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/api" />
+            <option value="$PROJECT_DIR$/business" />
+            <option value="$PROJECT_DIR$/common" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/src/main/java/org/tix/soa2_1/api" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/src/main/java/org/tix/soa2_1/api" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/src/main/java/org/tix/soa2_1/business" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/src/main/java/org/tix/soa2_1/business" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/src/main/java/org/tix/soa2_1/common" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/src/main/java/org/tix/soa2_1/common" />
           </set>
         </option>
       </GradleProjectSettings>

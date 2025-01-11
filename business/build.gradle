@@ -1,0 +1,45 @@
+plugins {
+  id 'java'
+  id 'com.github.johnrengelman.shadow' version '7.1.2'
+
+}
+
+group 'org.tix'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+  junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
+
+dependencies {
+  implementation project(':common')
+  compileOnly('jakarta.enterprise:jakarta.enterprise.cdi-api:3.0.0')
+  compileOnly('jakarta.ejb:jakarta.ejb-api:4.0.0')
+  compileOnly('jakarta.ws.rs:jakarta.ws.rs-api:3.0.0')
+  compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
+  implementation("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.15.2")
+
+  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+shadowJar {
+  archiveBaseName.set('business')
+  archiveVersion.set('1.0-SNAPSHOT')
+  archiveClassifier.set('')
+}
+test {
+useJUnitPlatform()}

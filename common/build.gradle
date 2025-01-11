@@ -1,0 +1,39 @@
+plugins {
+  id 'java'
+}
+
+group 'org.tix'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+  junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
+
+dependencies {
+  implementation 'org.projectlombok:lombok:1.18.30'
+  compileOnly('jakarta.platform:jakarta.jakartaee-web-api:9.1.0')
+  compileOnly('jakarta.mvc:jakarta.mvc-api:2.0.0')
+  compileOnly 'org.projectlombok:lombok:1.18.26' // или последнюю версию
+  annotationProcessor 'org.projectlombok:lombok:1.18.26' // или последнюю версию
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
+  implementation("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.15.2")
+  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+jar {
+  archiveBaseName = 'common'
+}
+test {
+useJUnitPlatform()}

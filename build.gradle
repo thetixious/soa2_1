@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'war'
+//    id 'war'
 }
 
 group 'org.tix'
@@ -22,13 +22,14 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 dependencies {
+
     implementation 'org.projectlombok:lombok:1.18.30'
     compileOnly('jakarta.platform:jakarta.jakartaee-web-api:9.1.0')
     compileOnly('jakarta.mvc:jakarta.mvc-api:2.0.0')
     compileOnly 'org.projectlombok:lombok:1.18.26' // или последнюю версию
     annotationProcessor 'org.projectlombok:lombok:1.18.26' // или последнюю версию
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
     implementation("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.15.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
