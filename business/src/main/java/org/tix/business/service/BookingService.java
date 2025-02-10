@@ -36,6 +36,7 @@ public class BookingService implements BookingServiceInt {
     @Override
     public Response removeAllTicketsFromPerson(Long personIdLong) {
         ticketAPICaller.removeAllByPersonId(personIdLong);
+
         return Response.ok().entity("Бронирования удалены").build();
     }
 }

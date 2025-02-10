@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 @Dependent
 public class TicketAPICaller {
     private Client client;
-    private final String serviceUrl = "https://haproxy:20000/tickets";
+    private final String serviceUrl = "http://haproxy:20000/tickets";
     private static final Logger logger = Logger.getLogger(TicketAPICaller.class.getName());
 
     private static final ObjectMapper mapper = new ObjectMapper()
@@ -100,6 +100,7 @@ public class TicketAPICaller {
                 logger.info("офывдлаофлыд ОШИБКААААА2");
                 throw new NotFoundTicketException("Ticket or user not found");
             }
+            logger.info("Response class: " + response.getClass());
         } catch (ProcessingException e) {
             throw new InvalidParameterException("Processing error while removing tickets for personId " + personId + ": " + e.getMessage());
         } catch (NotFoundTicketException e) {
@@ -107,7 +108,9 @@ public class TicketAPICaller {
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error while removing tickets for personId " + personId, e);
         } finally {
+
             if (client != null) {
+                logger.info("BOBOBBOBOBOBOOBOB");
                 client.close();
             }
         }
