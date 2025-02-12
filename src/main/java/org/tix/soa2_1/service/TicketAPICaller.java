@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class TicketAPICaller {
     private Client client;
-    private final String serviceUrl = "https://localhost:8080/tickets";
+    private final String serviceUrl = "https://localhost:8000/tickets";
     private static final Logger logger = Logger.getLogger(TicketAPICaller.class.getName());
 
     private static final ObjectMapper mapper = new ObjectMapper()
