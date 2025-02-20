@@ -2,6 +2,8 @@ package org.tix.soa2_1;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
+import jakarta.xml.ws.Endpoint;
+import org.tix.soa2_1.controller.impl.BookingControllerImpl;
 import org.tix.soa2_1.exception.NotFoundTicketExceptionMapper;
 import org.tix.soa2_1.resource.BookingResource;
 import org.tix.soa2_1.exception.InvalidParameterExceptionMapper;
@@ -13,6 +15,11 @@ import java.util.Set;
 @ApplicationPath("/api")
 public class SOAApplication extends Application {
 
+//    public SOAApplication() {
+//        String url = "http://localhost:8081/soa2_1-1.0-SNAPSHOT/";
+//        Endpoint.publish(url, new BookingControllerImpl());
+//        System.out.println("SOAP-сервис доступен по адресу: " + url + "?wsdl");
+//    }
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
