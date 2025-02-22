@@ -2,13 +2,16 @@ package org.tix.soa2_1.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 @Data
-public class TicketForResponse {
+@XmlRootElement
+public class TicketForResponse implements Serializable {
     private String name;
     private Coordinates coordinates;
     private ZonedDateTime creationDate;
